@@ -1,0 +1,15 @@
+/*---------------------------start---------------------------------*/
+html{
+	background:#fff;
+}
+body{
+	font:16px/16px Arial, Helvetica, sans-serif;
+	color:#000;
+}
+.btn{
+	cursor: pointer;
+}
+.value-error{
+	color: red;
+	font-weight: bold;
+}
