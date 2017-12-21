@@ -119,7 +119,4 @@
 	linkBtn.addEventListener('click', validation, true);
 	mouseOverOut.start(document.querySelectorAll('input[type=password]')[0]);
 	mouseOverOut.start(document.querySelectorAll('input[type=password]')[1]);
-	document.getElementById('btnShow').addEventListener('click', function(){
-		getSetLocalStorage.displayLS(VALID_OBJ_NAME);
-	}, true);
 })();

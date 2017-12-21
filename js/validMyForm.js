@@ -46,9 +46,6 @@ let validMyForm = (function() {
 			let keys = Object.keys(validObj);
 			if(ind === undefined){ind = ''};
 			let flag = keys.some(el => {return el === `${name}${ind}`});
-			// console.log("",);
-			// console.log("linkOne ",linkOne);
-			// console.log("type ",type);
 
 			if(type === 'checkbox' || type === 'radio'){
 				if(linkOne.checked && !flag){

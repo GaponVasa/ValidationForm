@@ -12,8 +12,6 @@ let getSetLocalStorage = (function(){
 		return JSON.parse(localStorage.getItem(name));
 	};
 
-	// let button3 = document.getElementById("toDisplay");
-	// button3.addEventListener("click", toDisplayLocalStorage);
 	let toDisplayLocalStorage = function(name){
 		let obj = getLocalStorage(name);
 		if(obj === null){
@@ -23,8 +21,6 @@ let getSetLocalStorage = (function(){
 		};
 	};
 
-	// let button1 = document.getElementById("delete");
-	// button1.addEventListener("click", deleteLocalStorage);
 	let deleteLocalStorage = function(name){
 		localStorage.removeItem(name);
 		console.log("Dlete Local Storage");
