@@ -7,7 +7,7 @@
 	const VALID_OBJ_NAME = 'myValidFormInfo';
 	keys.forEach(el =>{
 		if(el !== 'flag'){
-			divContainer.innerHTML += `<div >${el} : ${obj[el]}</div>`;
+			divContainer.innerHTML += `<div >${el} : <span class="text-success">${obj[el]}</span></div>`;
 		}
 	});
 	targetElement.appendChild(divContainer);

@@ -1,9 +1,6 @@
 "use strict";
 
-// console.log(isEmpty({}));
-// console.log(isEmpty({name:"ok"}));
 (function(){
-	//let myValidFormInfo = validMyForm.start();
 	let validObj = {};
 	let linkBtn = document.getElementById('btn');
 	const REG_PATTERN_EMAIL = /([a-zA-Z0-9_.]{1,})((@[a-zA-Z]{2,})[\\\.]([a-zA-Z]{2,3}))/;
@@ -68,19 +65,9 @@
 					document.getElementById('myForm-password-error'),
 					'Error. Check password.'];
 
-	// let init = ()=>{
-	// 	linkBtn.addEventListener('click', validation, true);
-	// 	return validObj;
-	// };
-
-
-
 	let validation = () =>{
-		console.log("--------------------START validation-------------------");
-		console.log(validObj);
-		// console.log("location =",location);
-		// console.log("location.href =",location.href);
-		//validObj = {};
+		// console.log("--------------------START validation-------------------");
+		//console.log(validObj);
 		validMyForm.setObj(validObj);
 		validMyForm.inputText(arrFirstName);
 		validMyForm.inputText(arrSecondName);
@@ -101,11 +88,8 @@
 			getSetLocalStorage.setLS(validObj, VALID_OBJ_NAME);
 			window.location.href = 'result.html';
 		};
-		
-
-		console.log("--------------------END validation-------------------");
-	};
-	
+		//console.log("--------------------END validation-------------------");
+	};	
 
 	function isEmpty(obj) {
 	    for(var key in obj) {

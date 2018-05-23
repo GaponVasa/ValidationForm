@@ -1,95 +1,166 @@
 "use strict";
 
-let validateForm = (function(arr){
-    
+let formElementsArr = [
+    {
+        element:document.querySelector('input[name=firstName]'),
+        type:'input',
+        rules:[
+            {
+                isValid:function(input){return input.value.length < 3;},
+                ruleElement:document.querySelector('#myForm-firstName-error li:nth-child(1)'),
+                messege:'At least 3 characters long.'
+            },
+            {
+                isValid:function(input){return input.value.length < 3;},
+                ruleElement:document.querySelector('#myForm-firstName-error li:nth-child(2)'),
+                messege:'At most 20 characters long.'
+            },
+            {
+                isValid:function(input){
+                    var allowedCharacters = input.value.match(/[^a-zA-Z]/g);
+                    return allowedCharacters ? true : false;
+                },
+                ruleElement:document.querySelector('#myForm-firstName-error li:nth-child(3)'),
+                messege:'Must only contain letters.'
+            }
+        ]
+    },
+    {
+        element:document.querySelector('input[name=firstName]'),
+        type:'input',
+        rules:[
+            {
+                isValid:function(input){return input.value.length < 3;},
+                ruleElement:document.querySelector('#myForm-firstName-error li:nth-child(1)'),
+                messege:'At least 3 characters long.'
+            },
+            {
+                isValid:function(input){return input.value.length < 3;},
+                ruleElement:document.querySelector('#myForm-firstName-error li:nth-child(2)'),
+                messege:'At most 20 characters long.'
+            },
+            {
+                isValid:function(input){
+                    var allowedCharacters = input.value.match(/[^a-zA-Z]/g);
+                    return allowedCharacters ? true : false;
+                },
+                ruleElement:document.querySelector('#myForm-firstName-error li:nth-child(3)'),
+                messege:'Must only contain letters.'
+            }
+        ]
+    },
+    {
+        element:'link radio',
+        type:'radio',
+        rules:[
+            {
+                isValid:function(){},
+                ruleElement:'link li element',
+                messege:'error'
+            }
+        ]
+    },
+    {
+        element:'link select',
+        type:'select',
+        rules:[
+            {
+                isValid:function(){},
+                ruleElement:'link li element',
+                messege:'error'
+            }
+        ]
+    },
+    {
+        element:'link checkbox',
+        type:'checkbox',
+        rules:[
+            {
+                isValid:function(){},
+                ruleElement:'link li element',
+                messege:'error'
+            }
+        ]
+    }
+];
+
+(function(){
+    class Validation{
+        constructor(arr){
+            this.arr = arr
+        }
+
+        switchEl(){
+            this.arr.forEach(el =>{
+                if(el.type === 'input'){
+                    console.log('input');
+                }else if(el.type === 'select'){
+                    console.log('select');
+                }else if(el.type === 'checkbox'){
+                    console.log('checkbox');
+                }else if(el.type === 'radio'){
+                    console.log('radio');
+                }else{
+                    console.error('ERROR type');
+                }
+            });
+        }
 
 
-
-
+    };
 
 
 
     console.log("-----------------------");
+    //console.table(arr);
+    let input = document.querySelector('input[name=firstName]');
+    input.Validation = new Validation(formElementsArr);
+    input.Validation.switchEl();
+    console.log(input.Validation);
+    console.dir(input);
+})();
 
-    let init =()=>{
-        let form;
-        console.log(arr);
-        arr.forEach(el =>{
-            console.log(el);
-            if(el.form){
-                form = el.form;
-            };
-
-        });
-    };
-
-   
-
-    return{
-        start: init
-    };
-})([
-    {form: document.getElementById('myForm')},
-    {
-        link:document.querySelector('input[name=firstName]'),
-        type:'text',
-        pattern:/\9/,
-        errorLink:document.getElementById('myForm-firstName-error'),
-        errorMessage:'myForm-firstName-error'
-    },
-    {
-        link:document.querySelector('input[name=lastName]'),
-        type:'text',
-        pattern:/\9/,
-        errorLink:document.getElementById('myForm-lastName-error'),
-        errorMessage:'myForm-lastName-error'
-    },
-    {
-        link:document.querySelector('input[name=email]'),
-        type:'email',
-        pattern:/\9/,
-        errorLink:document.getElementById('myForm-email-error'),
-        errorMessage:'myForm-email-error'
-    },
-    {
-        link:document.querySelector('input[name=telephone]'),
-        type:'telephone',
-        pattern:/\9/,
-        errorLink:document.getElementById('myForm-telephone-error'),
-        errorMessage:'myForm-telephone-error'
-    },
-    {
-        link:document.querySelectorAll('input[name=sex]'),
-        type:'radio',
-        pattern:'!empty',
-        errorLink:document.getElementById('myForm-sex-error'),
-        errorMessage:'myForm-sex-error'
-    },
-    {
-        link:document.getElementById('country'),
-        type:'select',
-        pattern:'!empty',
-        errorLink:document.getElementById('myForm-addres-country'),
-        errorMessage:'myForm-addres-country'
-    },
-    {
-        link:document.querySelectorAll('input[type=checkbox]'),
-        type:'checkbox',
-        pattern:'!empty',
-        errorLink:document.getElementById('myForm-check-contact'),
-        errorMessage:'myForm-check-contact'
-    },
-    // {
-    //     link:,
-    //     type:,
-    //     pattern:,
-    //     errorLink:document.getElementById(''),
-    //     errorMessage:
-    // }
-]);
-
-validateForm.start();
-
-//document.body.addEventListener('click', validateForm.start);
-
-//validateForm();
+// {
+//         element:'link input',
+//         type:'input',
+//         rules:[
+//             {
+//                 isValid:function(){},
+//                 ruleElement:'link li element',
+//                 messege:'error'
+//             }
+//         ]
+//     },
+//     {
+//         element:'link select',
+//         type:'select',
+//         rules:[
+//             {
+//                 isValid:function(){},
+//                 ruleElement:'link li element',
+//                 messege:'error'
+//             }
+//         ]
+//     },
+//     {
+//         element:'link checkbox',
+//         type:'checkbox',
+//         rules:[
+//             {
+//                 isValid:function(){},
+//                 ruleElement:'link li element',
+//                 messege:'error'
+//             }
+//         ]
+//     },
+//     {
+//         element:'link radio',
+//         type:'radio',
+//         rules:[
+//             {
+//                 isValid:function(){},
+//                 ruleElement:'link li element',
+//                 messege:'error'
+//             }
+//         ]
+//     }

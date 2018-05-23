@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>Validation Form Variant 1</title>
+	<title>Validation Form Variant 2</title>
 	<link rel="stylesheet" type="text/css" href="css/all.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
@@ -14,30 +14,43 @@
 				<form action="#" onsubmit="" name="firstForm" id="myForm" class="border rounded  p-3">
 					<div class="form-group mt-3">
 						<p class="font-weight-bold">First Name.</p>
-						<input type="text" name="firstName" class="form-control" maxlength="20" placeholder="First Name. Maximum 20 letters.">
-						<div id="myForm-firstName-error" class="value-error"></div>
+						<input type="text" name="firstName" class="form-control" minlength="3" maxlength="20" placeholder="First Name. Maximum 20 letters." required>
+						<ul id="myForm-firstName-error" class="value-error">
+							<li>At least 3 characters long.</li>
+							<li>At most 20 characters long.</li>
+							<li>Must only contain letters.</li>
+						</ul>
+						<!-- <div id="myForm-firstName-error" class="value-error">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti, libero!</div> -->
 					</div>
 					<div class="form-group">
 						<p class="font-weight-bold">Last Name.</p>
-						<input type="text" name="lastName" class="form-control" maxlength="20" placeholder="Last Name. Maximum 20 letters.">
-						<div id="myForm-lastName-error" class="value-error"></div>
+						<input type="text" name="lastName" class="form-control" minlength="3" maxlength="20" placeholder="Last Name. Maximum 20 letters." required>
+						<ul id="myForm-lastName-error" class="value-error">
+							<li>At least 3 characters long.</li>
+							<li>At most 20 characters long.</li>
+							<li>Must only contain letters.</li>
+						</ul>
+						<!-- <div id="myForm-lastName-error" class="value-error">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repudiandae, suscipit!</div> -->
 					</div>
 					<div class="form-group">
-						<span class="form-check form-check-inline">
+						<div class="form-check form-check-inline">
 							<label for="gender" class="form-check-label">
 								<input type="radio" name="gender" value="male" class="form-check-input">Male
 							</label>
 							<label for="gender" class="form-check-label ml-4">
 								<input type="radio" name="gender" value="female" class="form-check-input">Female
 							</label>
-						</span>
-						<div id="myForm-gender-error" class="value-error"></div>
+						</div>
+						<ul id="myForm-gender-error" class="value-error">
+							<li>Choose your gender.</li>
+						</ul>
+						<!-- <div id="myForm-gender-error" class="value-error">Lorem ipsum dolor sit amet.</div> -->
 					</div>
 					<div class="form-group container px-0">
 						<p class="font-weight-bold">Birthday.</p>
 						<div class="row justify-content-around">
 							<span class="col-auto">
-								<select id="day" class="form-control" name="birthdayDay">
+								<select id="day" class="form-control" name="birthdayDay" required>
 									<option>  </option>
 					                <option value="1"> 1 </option>
 					                <option value="2"> 2 </option>
@@ -74,7 +87,7 @@
 								<label for="day">Day</label>
 							</span>
 							<span class="col-auto">
-								<select id="month" class="form-control" name="birthdayMonth">
+								<select id="month" class="form-control" name="birthdayMonth" required>
 									<option>  </option>
 					                <option value="January"> January </option>
 					                <option value="February"> February </option>
@@ -92,7 +105,7 @@
 								<label for="month">Month</label>
 							</span>
 							<span class="col-auto">
-								<select id="year" class="form-control" name="birthdayYear">
+								<select id="year" class="form-control" name="birthdayYear" required>
 									<option>  </option>
 					                <option value="2017"> 2017 </option>
 					                <option value="2016"> 2016 </option>
@@ -196,49 +209,80 @@
 								<label for="year">Year</label>
 							</span>
 						</div>
-						<div id="myForm-birthday-error" class="value-error"></div>
+						<ul id="myForm-birthday-error" class="value-error">
+							<li>Select yours birthday Day.</li>
+							<li>Select yours birthday Month.</li>
+							<li>Select yours birthday Year.</li>
+						</ul>
+						<!-- <div id="myForm-birthday-error" class="value-error"></div> -->
 					</div>
 					<div class="form-group">
 						<p class="font-weight-bold">E-mail.</p>
-						<input type="email" name="email" class="form-control" placeholder="Email">
-						<div id="myForm-email-error" class="value-error"></div>
+						<input type="email" name="email" class="form-control" minlength="6" maxlength="100" placeholder="Email" required>
+						<ul id="myForm-email-error" class="value-error">
+							<li>Not empty.</li>
+							<li>At least 6 characters long.</li>
+							<li>At most 100 characters long.</li>
+							<li>Contains a special character @.</li>
+						</ul>
+						<!-- <div id="myForm-email-error" class="value-error"></div> -->
 					</div>
 					<div class="form-group">
 						<p class="font-weight-bold">Telephone Number.</p>
-						<p>Format (123)456-7890 or +1234567890.</p>
-						<input type="telephone" name="telephone" class="form-control" placeholder="Telephone Number">
-						<div id="myForm-telephone-error" class="value-error"></div>
+						<!-- <p>Format (123)456-7890 or +1234567890.</p> -->
+						<input type="telephone" name="telephone" class="form-control" placeholder="Telephone Number" required>
+						<ul id="myForm-telephone-error" class="value-error">
+							<li>Not empty.</li>
+							<li>Format (123)456-7890 or +1234567890.</li>
+						</ul>
+						<!-- <div id="myForm-telephone-error" class="value-error"></div> -->
 					</div>
 					<div class="form-group">
 						<p class="font-weight-bold">Addres.</p>
 						<div class="pt-3">
 							<p>Address Line 1</p>
-							<input type="text" name="addressLine1" class="form-control" placeholder="Street address, P.O. box, company name, c/o">
-							<div id="myForm-addres-addressLine1" class="value-error"></div>
+							<input type="text" name="addressLine1" class="form-control" placeholder="Street address, P.O. box, company name, c/o" required>
+							<ul id="myForm-addres-addressLine1" class="value-error">
+								<li>Not empty.</li>
+							</ul>
+							<!-- <div id="myForm-addres-addressLine1" class="value-error"></div> -->
 						</div>
 						<div class="pt-3">
 							<p>Address Line 2</p>
-							<input type="text" name="addressLine2" class="form-control" placeholder="Apartment, suite , unit, building, floor, etc.">
-							<div id="myForm-addres-addressLine2" class="value-error"></div>
+							<input type="text" name="addressLine2" class="form-control" placeholder="Apartment, suite , unit, building, floor, etc." required>
+							<ul id="myForm-addres-addressLine2" class="value-error">
+								<li>Not empty.</li>
+							</ul>
+							<!-- <div id="myForm-addres-addressLine2" class="value-error"></div> -->
 						</div>
 						<div class="pt-3">
 							<p>City / Town</p>
-							<input type="text" name="addressCity" class="form-control" placeholder="city">
-							<div id="myForm-addres-city" class="value-error"></div>
+							<input type="text" name="addressCity" class="form-control" placeholder="city" required>
+							<ul id="myForm-addres-city" class="value-error">
+								<li>Not empty.</li>
+							</ul>
+							<!-- <div id="myForm-addres-city" class="value-error"></div> -->
 						</div>
 						<div class="pt-3">
 							<p>State / Province / Region</p>
-							<input type="text" name="addressRegion" class="form-control" placeholder="state / province / region">
-							<div id="myForm-addres-region" class="value-error"></div>
+							<input type="text" name="addressRegion" class="form-control" placeholder="state / province / region" required>
+							<ul id="myForm-addres-region" class="value-error">
+								<li>Not empty.</li>
+							</ul>
+							<!-- <div id="myForm-addres-region" class="value-error"></div> -->
 						</div>
 						<div class="pt-3">
 							<p>Zip / Postal Code</p>
-							<input type="text" name="addressPostalCode" class="form-control" placeholder="zip or postal code">
-							<div id="myForm-addres-postalCode" class="value-error"></div>
+							<input type="text" name="addressPostalCode" class="form-control" placeholder="zip or postal code" required>
+							<ul id="myForm-addres-postalCode" class="value-error">
+								<li>Not empty.</li>
+								<li>Entered are several digits of the postal code.</li>
+							</ul>
+							<!-- <div id="myForm-addres-postalCode" class="value-error"></div> -->
 						</div>
 						<div class="pt-3">
 							<p>Country</p>
-							<select id="country"  class="form-control" name="addressCountry">
+							<select id="country"  class="form-control" name="addressCountry" required>
 	                            <option value="" selected="selected">(please select a country)</option>
 	                            <option value="AL">Albania</option>
 	                            <option value="AT">Austria</option>
@@ -284,37 +328,55 @@
 	                            <option value="US">United States</option>
 	                            <option value="YU">Yugoslavia</option>
 	                        </select>
-	                        <div id="myForm-addres-country" class="value-error"></div>
+	                        <ul id="myForm-addres-country" class="value-error">
+	                        	<li>Selected yours country.</li>
+	                        </ul>
+	                        <!-- <div id="myForm-addres-country" class="value-error"></div> -->
 	                    </div>
 					</div>
 					<div class="form-group">
 						<p class="font-weight-bold">Contact.</p>
-						<span class="form-check">
-							<label class="form-check-label ml-3">
-								<input type="checkbox" name="contact" value="email" class="form-check-input">E-mail
-							</label>
-						</span>
-						<span class="form-check">
-							<label class="form-check-label ml-3">
-								<input type="checkbox" name="contact" value="phone" class="form-check-input">Phone
-							</label>
-						</span>
-						<span class="form-check">
-							<label class="form-check-label ml-3">
-								<input type="checkbox" name="contact" value="mail" class="form-check-input">Mail
-							</label>
-						</span>
-						<div id="myForm-check-contact" class="value-error"></div>
+						<div>
+							<span class="form-check">
+								<label class="form-check-label ml-3">
+									<input type="checkbox" name="contact" value="email" class="form-check-input">E-mail
+								</label>
+							</span>
+							<span class="form-check">
+								<label class="form-check-label ml-3">
+									<input type="checkbox" name="contact" value="phone" class="form-check-input">Phone
+								</label>
+							</span>
+							<span class="form-check">
+								<label class="form-check-label ml-3">
+									<input type="checkbox" name="contact" value="mail" class="form-check-input">Mail
+								</label>
+							</span>
+						</div>
+						<ul id="myForm-check-contact" class="value-error">
+							<li>One or more methods of communication are selected.</li>
+						</ul>
+						<!-- <div id="myForm-check-contact" class="value-error"></div> -->
 					</div>
 					<div class="form-group">
 						<p class="font-weight-bold">Password.</p>
 						<p class="">If you need to see the password, move the mouse to the field.</p>
 						<div class="mb-3">
-							<input type="password" name="password" class="form-control" placeholder="Password">
+							<input type="password" name="password" class="form-control" placeholder="Password" required>
+							<ul id="myForm-password-error" class="value-error">
+								<li>At least 8 characters long (and less than 100 characters).</li>
+								<li>Contains at least 1 number.</li>
+								<li>Contains at least 1 lowercase letter.</li>
+								<li>Contains at least 1 uppercase letter.</li>
+								<li>Contains a special character (e.g. @ !).</li>
+							</ul>
 						</div>
 						<div class="">
-							<input type="password" name="passwordConfirmation" class="form-control" placeholder="Password Confirmation">
-							<div id="myForm-password-error" class="value-error"></div>
+							<input type="password" name="passwordConfirmation" class="form-control" placeholder="Password Confirmation" required>
+							<ul class="value-error">
+								<li>This password needs to match the first one.</li>
+							</ul>
+							<!-- <div id="myForm-password-error" class="value-error"></div> -->
 						</div>
 					</div>
 					<div class="form-group text-right">
@@ -332,6 +394,6 @@
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-	<!-- <script src="js/1.js" type="text/javascript"></script> -->
+	<script src="js/1.js" type="text/javascript"></script>
 </body>
 </html>

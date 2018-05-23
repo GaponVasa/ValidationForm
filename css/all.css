@@ -1,4 +1,3 @@
-/*---------------------------start---------------------------------*/
 html{
 	background:#fff;
 }
@@ -10,6 +9,40 @@ body{
 	cursor: pointer;
 }
 .value-error{
-	color: red;
-	font-weight: bold;
+/*	color: red;*/
+	font-weight: lighter;
+}
+
+.value-error li.invalid {
+	color: #e74c3c;
+}
+.value-error li.valid {
+	color: #2ecc71;
+}
+
+.value-error li.valid:after {
+	display: inline-block;
+	padding-left: 10px;
+	content: "\2713";
+}
+
+input:not([type="button"]) + .value-error,
+select + .value-error,
+div + .value-error{
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 3s ease-out;  
+}
+
+input:not([type="button"]):hover + .value-error,
+input:not([type="button"]):focus + .value-error,
+input:not([type="button"]):active + .value-error,
+select:hover + .value-error,
+select:focus + .value-error,
+select:active + .value-error,
+div:hover + .value-error,
+div:focus + .value-error,
+div:active + .value-error{
+  max-height: 1000px;  /*any large number (bigger then the .input-requirements list) */
+  transition: max-height 3s ease-in;
 }
