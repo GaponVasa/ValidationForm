@@ -1,8 +1,10 @@
 "use strict";
 let validMyForm = (function() {
-	let validObj, memory;
+	let validObj;
 	const TRUE = true;
 	const FALSE = false;
+	const WARNING = 'red';
+	const GREY = '#ced4da';
 
 	let setValidObj = (obj)=>{validObj = obj};
 
@@ -17,18 +19,16 @@ let validMyForm = (function() {
 	};
 
 	let addErrorStyle = (link)=>{
-		const WARING = 'red';
 		if(Array.isArray(link)){
 			link.forEach(el =>{
-				el.style.borderColor = WARING;
+				el.style.borderColor = WARNING;
 			});
 		}else{
-			link.style.borderColor = WARING;
+			link.style.borderColor = WARNING;
 		};
 	};
 
 	let removeErrorStyle = (link)=>{
-		const GREY = '#ced4da';
 		if(Array.isArray(link)){
 			link.forEach(el =>{
 				el.style.borderColor = GREY;
