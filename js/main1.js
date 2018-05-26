@@ -68,9 +68,7 @@
 					'Error. Check password confirm.'];
 
 	let validation = () =>{
-		// console.log("--------------------START validation-------------------");
 		validObj = {flag:false};
-		//console.log('befor befor validObj',validObj);
 		validMyForm.setObj(validObj);
 		validMyForm.inputText(arrFirstName);
 		validMyForm.inputText(arrSecondName);
@@ -85,19 +83,13 @@
 		validMyForm.inputText(arrPostalCode);
 		validMyForm.select(arrCountry);
 		validMyForm.inputRadio(arrContact);
-		//console.log('befor validMyForm.inputPassword(arrPassword)  validObj.flag ', validObj.flag);
-		//console.log('validMyForm.inputPassword(arrPassword);');
 		validMyForm.inputPassword(arrPassword);
 		validObj = validMyForm.getObj();
-		//console.log('validObj befor',validObj);
 		if(!isEmpty(validObj) && validObj.flag){
 			getSetLocalStorage.setLS(validObj, VALID_OBJ_NAME);
 			window.location.href = 'result.html';
 			// console.dir(validObj);
-			//console.log('isEmpty(validObj)', isEmpty(validObj));
-			//console.log('validObj.flag ', validObj.flag);
 		};
-		//console.log("--------------------END validation-------------------");
 	};	
 
 	function isEmpty(obj) {
@@ -113,5 +105,3 @@
 	mouseOverOut.start(document.querySelectorAll('input[type=password]')[0]);
 	mouseOverOut.start(document.querySelectorAll('input[type=password]')[1]);
 })();
-
-//console.log(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/m.test('ASD45ty7'));

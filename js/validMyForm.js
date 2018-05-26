@@ -1,6 +1,29 @@
 "use strict";
 /*
-	Модуль validMyForm призначений для
+	Модуль validMyForm призначений для форми після повного заповнення.
+	-setObj - функція яка встановлює обєкт validObj в який записуються дані після валідації
+	-getObj - функція яка віддає заповнений обєкт validObj.
+	-inputText - функція яка призначена для валідації input з текстовою начинкою.
+		*link - посилання на input
+		*pattern - регулярний вираз для переввірки input
+		*errorLink - посилання на тег в якому буде повідомлення про помилку заповнення input
+		*errorMessage - повідомлення про помилку заповнення форми для input
+	-inputRadio - функція яка призначена для валідації radio button та checkbox
+		*sourceElement - посилання на radio button
+		*errorLink - посилання на тег в якому буде повідомлення про помилку заповнення radio button та checkbox
+		*errorMessage - повідомлення про помилку заповнення форми для radio button та checkbox
+	-inputPassword - функція яка призначена для валідації input password та passwordConfirm
+		*link1 - посилання на input password
+		*link2 - посилання на input passwordConfirm
+		*pattern - посилання на тег в якому буде повідомлення про помилку заповнення input password
+		*errorLink1 - посилання на тег в якому буде повідомлення про помилку заповнення форми для password 
+		*errorLink2 - посилання на тег в якому буде повідомлення про помилку заповнення форми для passwordConfirm
+		*errorMessage1 - повідомлення про помилку заповнення форми password
+		*errorMessage2 - повідомлення про помилку заповнення форми passwordConfirm
+	-select - функція яка призначена для валідації select
+		*link - посилання на select один або масив select-ів
+		*errorLink - посилання на тег в якому буде повідомлення про помилку заповнення select
+		*errorMessage - повідомлення про помилку заповнення форми для select
 */
 let validMyForm = (function() {
 	let validObj;
