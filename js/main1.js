@@ -1,7 +1,7 @@
 "use strict";
 
 (function(){
-	let validObj = {};
+	let validObj;
 	let linkBtn = document.getElementById('btn');
 	const REG_PATTERN_EMAIL = /([a-zA-Z0-9_.]{1,})((@[a-zA-Z]{2,})[\\\.]([a-zA-Z]{2,3}))/;
 	const REG_PATTERN_PHONE = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
@@ -69,7 +69,8 @@
 
 	let validation = () =>{
 		// console.log("--------------------START validation-------------------");
-		//console.log(validObj);
+		validObj = {flag:false};
+		//console.log('befor befor validObj',validObj);
 		validMyForm.setObj(validObj);
 		validMyForm.inputText(arrFirstName);
 		validMyForm.inputText(arrSecondName);
@@ -84,16 +85,17 @@
 		validMyForm.inputText(arrPostalCode);
 		validMyForm.select(arrCountry);
 		validMyForm.inputRadio(arrContact);
-		console.log('validMyForm.inputPassword(arrPassword);');
+		//console.log('befor validMyForm.inputPassword(arrPassword)  validObj.flag ', validObj.flag);
+		//console.log('validMyForm.inputPassword(arrPassword);');
 		validMyForm.inputPassword(arrPassword);
 		validObj = validMyForm.getObj();
-		
+		//console.log('validObj befor',validObj);
 		if(!isEmpty(validObj) && validObj.flag){
-			// getSetLocalStorage.setLS(validObj, VALID_OBJ_NAME);
-			// window.location.href = 'result.html';
-			console.log(validObj);
-		console.log('isEmpty(validObj)', isEmpty(validObj));
-		console.log('validObj.flag ', validObj.flag);
+			getSetLocalStorage.setLS(validObj, VALID_OBJ_NAME);
+			window.location.href = 'result.html';
+			// console.dir(validObj);
+			//console.log('isEmpty(validObj)', isEmpty(validObj));
+			//console.log('validObj.flag ', validObj.flag);
 		};
 		//console.log("--------------------END validation-------------------");
 	};	

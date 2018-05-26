@@ -1,4 +1,7 @@
 "use strict";
+/*
+	Модуль validMyForm призначений для
+*/
 let validMyForm = (function() {
 	let validObj;
 	const TRUE = true;
@@ -6,15 +9,23 @@ let validMyForm = (function() {
 	const WARNING = 'red';
 	const GREY = '#ced4da';
 
-	let setValidObj = (obj)=>{validObj = obj};
+	let setValidObj = (obj)=>{
+		let keys = Object.keys(obj);
+		if(keys.length === 1){
+			validObj = obj
+		}else{
+			validObj = {flag:false};
+			console.error('Object.length > 1!!!');
+		};
+	};
 
 	let getValidObj = ()=>{return validObj};
 
-	let error = (link, message)=>{
-		if(link.innerHTML === ""){
-			link.innerHTML = message;
-		}else if(message === " "){
+	let addRemoveErrorMessage = (link, message)=>{
+		if(message === " " && link.firstChild){		
 			link.removeChild(link.firstChild);
+		}else{
+			link.textContent = message;
 		};
 	};
 
@@ -46,8 +57,6 @@ let validMyForm = (function() {
 			let keys = Object.keys(validObj);
 			if(ind === undefined){ind = ''};
 			let flag = keys.some(el => {return el === `${name}${ind}`});
-			// console.log("name", name);
-			// console.log("flag", flag);
 			if(type === 'checkbox' || type === 'radio'){
 				if(linkOne.checked && !flag){
 					validObj[`${name}${ind}`] = value;
@@ -57,15 +66,7 @@ let validMyForm = (function() {
 			};
 		};
 		if(typeof link === 'boolean'){
-			//console.log('validObj.flag',validObj.flag);
-			//console.log('link',link);
-			if(validObj.hasOwnProperty('flag')){
-				//console.log('validObj.hasOwnProperty(flag)');
-				validObj.flag = validObj.flag && link;
-			}else{
-				validObj.flag = link;
-			};
-			//console.log('after validObj.flag',validObj.flag);
+			validObj.flag = link;
 		}else{
 			if(Array.isArray(link)){
 				link.forEach((el, ind) =>{
@@ -81,24 +82,24 @@ let validMyForm = (function() {
 		if(pattern === ' '){
 			if(link.value === ''){
 				addToObj(FALSE);
-				error(errorLink, errorMessage);
+				addRemoveErrorMessage(errorLink, errorMessage);
 				addErrorStyle(link);
 			}else{
 				addToObj(TRUE);
 				addToObj(link);
-				error(errorLink, ' ');
+				addRemoveErrorMessage(errorLink, ' ');
 				removeErrorStyle(link);
 			};
 		}else{
 			if(!pattern.test(link.value)){
 				addToObj(FALSE);
-				error(errorLink, errorMessage);
+				addRemoveErrorMessage(errorLink, errorMessage);
 				addErrorStyle(link);
 				return false;
 			}else{
 				addToObj(TRUE);
 				addToObj(link);
-				error(errorLink, ' ');
+				addRemoveErrorMessage(errorLink, ' ');
 				removeErrorStyle(link);
 				return true;
 			};
@@ -108,10 +109,10 @@ let validMyForm = (function() {
 	let validSelect = function([link, errorLink, errorMessage]){
 		let flag;
 		if(Array.isArray(link)){
-			flag = link.some(el => {return el.value === ''});
+			flag = link.some(el => { if(el.value === '')return true});
 			if(flag){
 				addToObj(FALSE);
-				error(errorLink, errorMessage);
+				addRemoveErrorMessage(errorLink, errorMessage);
 				link.forEach(el =>{
 					if(el.value === ''){
 						addErrorStyle(el);
@@ -122,7 +123,7 @@ let validMyForm = (function() {
 			}else{
 				addToObj(TRUE);
 				addToObj(link);
-				error(errorLink, ' ');
+				addRemoveErrorMessage(errorLink, ' ');
 				link.forEach(el =>{
 					removeErrorStyle(el);
 				});
@@ -130,12 +131,12 @@ let validMyForm = (function() {
 		}else{
 			if(link.value === ''){
 				addToObj(FALSE);
-				error(errorLink, errorMessage);
+				addRemoveErrorMessage(errorLink, errorMessage);
 				addErrorStyle(link);
 			}else{
 				addToObj(TRUE);
 				addToObj(link);
-				error(errorLink, ' ');
+				addRemoveErrorMessage(errorLink, ' ');
 				removeErrorStyle(link);
 			};
 		};
@@ -147,58 +148,43 @@ let validMyForm = (function() {
 		flag = arrRadio.some(el =>{return el.checked === true});
 		if(!flag){
 			addToObj(FALSE);
-			error(errorLink, errorMessage);
+			addRemoveErrorMessage(errorLink, errorMessage);
 		}else{
 			addToObj(TRUE);
 			addToObj(arrRadio);
-			error(errorLink, ' ');
+			addRemoveErrorMessage(errorLink, ' ');
 		};
 	};
 
 	let validPassword = function([link1, link2, pattern, errorLink1, errorLink2, errorMessage1, errorMessage2]){
-		// let link1 = a;
-		// let link2 = b;
-		// let 
-		// console.log(link1, link2, pattern, errorLink1, errorLink2, errorMessage1, errorMessage2);
 
 		function validOnePassword (link, pattern, errorLink, errorMessage){
-			//console.log('link.value', link.value)
-			//console.log('!pattern.test(link.value)', pattern.test(link.value));
 			if(pattern.test(link.value)){
-				//console.log('pattern.test(link.value)');
-				error(errorLink, ' ');
+				addRemoveErrorMessage(errorLink, ' ');
 				removeErrorStyle(link);
 				return true;
 			}else{
-				//console.log('!pattern.test(link.value)');
-				error(errorLink, errorMessage);
+				addRemoveErrorMessage(errorLink, errorMessage);
+				addToObj(FALSE);
 				addErrorStyle(link);
 				return false;
 			};
 		}
 
-		//console.log('onePass',);
 		let onePass = validOnePassword(link1, pattern, errorLink1, errorMessage1);
-		//console.log('twoPass',);
 		let twoPass = validOnePassword(link2, pattern, errorLink2, errorMessage2);
-		//console.log("onePass =", onePass , "twoPass =", twoPass);
-		
+
 		if(onePass && twoPass){
-			//console.log('onePass && twoPass');
 			if(link1.value !== link2.value){
-				//console.log('link1.value !== link2.value');
-				error(errorLink1, errorMessage1);
-				error(errorLink2, errorMessage2);
+				addRemoveErrorMessage(errorLink1, errorMessage1);
+				addRemoveErrorMessage(errorLink2, errorMessage2);
 				addToObj(FALSE);
 				addErrorStyle([link1, link2]);
 			}else{
-				//console.log('link1.value === link2.value');
 				addToObj(TRUE);
-				//console.log('validObj.flag_1', validObj.flag);
 				addToObj(link1);
-				//console.log('validObj.flag_2', validObj.flag);
-				error(errorLink1, ' ');
-				error(errorLink2, ' ');
+				addRemoveErrorMessage(errorLink1, ' ');
+				addRemoveErrorMessage(errorLink2, ' ');
 				removeErrorStyle([link1, link2]);
 			};
 		}
