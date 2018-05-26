@@ -46,7 +46,8 @@ let validMyForm = (function() {
 			let keys = Object.keys(validObj);
 			if(ind === undefined){ind = ''};
 			let flag = keys.some(el => {return el === `${name}${ind}`});
-
+			// console.log("name", name);
+			// console.log("flag", flag);
 			if(type === 'checkbox' || type === 'radio'){
 				if(linkOne.checked && !flag){
 					validObj[`${name}${ind}`] = value;
@@ -56,11 +57,15 @@ let validMyForm = (function() {
 			};
 		};
 		if(typeof link === 'boolean'){
+			//console.log('validObj.flag',validObj.flag);
+			//console.log('link',link);
 			if(validObj.hasOwnProperty('flag')){
+				//console.log('validObj.hasOwnProperty(flag)');
 				validObj.flag = validObj.flag && link;
 			}else{
 				validObj.flag = link;
 			};
+			//console.log('after validObj.flag',validObj.flag);
 		}else{
 			if(Array.isArray(link)){
 				link.forEach((el, ind) =>{
@@ -150,17 +155,54 @@ let validMyForm = (function() {
 		};
 	};
 
-	let validPassword = function([link1, link2, pattern, errorLink, errorMessage]){
-		if(!pattern.test(link1.value) || !pattern.test(link2.value) || link1.value !== link2.value){
-			error(errorLink, errorMessage);
-			addToObj(FALSE);
-			addErrorStyle([link1, link2]);
-		}else{
-			addToObj(TRUE);
-			addToObj(link1);
-			error(errorLink, ' ');
-			removeErrorStyle([link1, link2]);
-		};
+	let validPassword = function([link1, link2, pattern, errorLink1, errorLink2, errorMessage1, errorMessage2]){
+		// let link1 = a;
+		// let link2 = b;
+		// let 
+		// console.log(link1, link2, pattern, errorLink1, errorLink2, errorMessage1, errorMessage2);
+
+		function validOnePassword (link, pattern, errorLink, errorMessage){
+			//console.log('link.value', link.value)
+			//console.log('!pattern.test(link.value)', pattern.test(link.value));
+			if(pattern.test(link.value)){
+				//console.log('pattern.test(link.value)');
+				error(errorLink, ' ');
+				removeErrorStyle(link);
+				return true;
+			}else{
+				//console.log('!pattern.test(link.value)');
+				error(errorLink, errorMessage);
+				addErrorStyle(link);
+				return false;
+			};
+		}
+
+		//console.log('onePass',);
+		let onePass = validOnePassword(link1, pattern, errorLink1, errorMessage1);
+		//console.log('twoPass',);
+		let twoPass = validOnePassword(link2, pattern, errorLink2, errorMessage2);
+		//console.log("onePass =", onePass , "twoPass =", twoPass);
+		
+		if(onePass && twoPass){
+			//console.log('onePass && twoPass');
+			if(link1.value !== link2.value){
+				//console.log('link1.value !== link2.value');
+				error(errorLink1, errorMessage1);
+				error(errorLink2, errorMessage2);
+				addToObj(FALSE);
+				addErrorStyle([link1, link2]);
+			}else{
+				//console.log('link1.value === link2.value');
+				addToObj(TRUE);
+				//console.log('validObj.flag_1', validObj.flag);
+				addToObj(link1);
+				//console.log('validObj.flag_2', validObj.flag);
+				error(errorLink1, ' ');
+				error(errorLink2, ' ');
+				removeErrorStyle([link1, link2]);
+			};
+		}
+
 	};
 
 	return {

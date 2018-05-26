@@ -6,7 +6,7 @@
 	const REG_PATTERN_EMAIL = /([a-zA-Z0-9_.]{1,})((@[a-zA-Z]{2,})[\\\.]([a-zA-Z]{2,3}))/;
 	const REG_PATTERN_PHONE = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 	const REG_PATTERN_POST_CODE = /\d/;
-	const REG_PATTERN_PASSWORD = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+	const REG_PATTERN_PASSWORD = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/m;
 	const VALID_OBJ_NAME = 'myValidFormInfo';
 	let arrFirstName = [document.querySelector('input[name=firstName]'),
 						' ',
@@ -63,7 +63,9 @@
 					document.querySelector('input[name=passwordConfirmation]'),
 					REG_PATTERN_PASSWORD,
 					document.getElementById('myForm-password-error'),
-					'Error. Check password.'];
+					document.getElementById('myForm-passwordConfirmation-error'),
+					'Error. Check password.',
+					'Error. Check password confirm.'];
 
 	let validation = () =>{
 		// console.log("--------------------START validation-------------------");
@@ -82,11 +84,16 @@
 		validMyForm.inputText(arrPostalCode);
 		validMyForm.select(arrCountry);
 		validMyForm.inputRadio(arrContact);
+		console.log('validMyForm.inputPassword(arrPassword);');
 		validMyForm.inputPassword(arrPassword);
 		validObj = validMyForm.getObj();
+		
 		if(!isEmpty(validObj) && validObj.flag){
-			getSetLocalStorage.setLS(validObj, VALID_OBJ_NAME);
-			window.location.href = 'result.html';
+			// getSetLocalStorage.setLS(validObj, VALID_OBJ_NAME);
+			// window.location.href = 'result.html';
+			console.log(validObj);
+		console.log('isEmpty(validObj)', isEmpty(validObj));
+		console.log('validObj.flag ', validObj.flag);
 		};
 		//console.log("--------------------END validation-------------------");
 	};	
@@ -104,3 +111,5 @@
 	mouseOverOut.start(document.querySelectorAll('input[type=password]')[0]);
 	mouseOverOut.start(document.querySelectorAll('input[type=password]')[1]);
 })();
+
+//console.log(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/m.test('ASD45ty7'));
