@@ -16,11 +16,11 @@ let objGood ={
 	birthdayDay:"1",
 	birthdayMonth:"January",
 	birthdayYear:"2017",
-	//contact:"email",
+	contact:"email",
 	email:"hapon.vasa@ukraine.com",
 	firstName:"Vasyl",
 	flag:false,
-	//gender:"male",
+	gender:"male",
 	lastName:"Hapon",
 	password:"DFR45ty7",
 	telephone:"+1234567890"

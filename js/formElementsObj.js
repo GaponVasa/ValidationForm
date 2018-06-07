@@ -1,5 +1,5 @@
 "use strict";
-
+console.log('formElementsObj.js');
 let formElementsObj = [
     {
         element:document.querySelector('input[name=firstName]'),
@@ -8,27 +8,27 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=firstName]'),
         rules:[
             {
-                isValid: function(input){return input.value.length === 0},
-                ruleElement: document.querySelector('#email-error li:nth-child(1)'),
+                isValid: function(input){return input.value.length !== 0},
+                ruleElement:()=>{return document.querySelector('#firstName-error li:nth-child(1)')},
                 messege: 'Not empty.'
             },
             {
-                isValid: function(input){return input.value.length < 3;},
-                ruleElement: document.querySelector('#firstName-error li:nth-child(1)'),
+                isValid: function(input){return input.value.length >= 3;},
+                ruleElement: ()=>{return document.querySelector('#firstName-error li:nth-child(2)')},
                 messege: 'At least 3 characters long.'
             },
             {
-                isValid: function(input){return input.value.length > 20;},
-                ruleElement: document.querySelector('#firstName-error li:nth-child(2)'),
+                isValid: function(input){return input.value.length <= 20;},
+                ruleElement: ()=>{return document.querySelector('#firstName-error li:nth-child(3)')},
                 messege: 'At most 20 characters long.'
             },
             {
                 isValid: function(input){
-                    var allowedCharacters = input.value.match(/[^a-zA-Z]/g);
+                    var allowedCharacters = /[a-zA-Z]/g.test(input.value);
                     return allowedCharacters ? true : false;
                 },
-                ruleElement: document.querySelector('#firstName-error li:nth-child(3)'),
-                messege: 'Must only contain letters.'
+                ruleElement: ()=>{return document.querySelector('#firstName-error li:nth-child(4)')},
+                messege: 'Must only contain letters a-z A-Z.'
             }
         ]
     },
@@ -39,26 +39,26 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=lastName]'),
         rules:[
             {
-                isValid: function(input){return input.value.length === 0},
-                ruleElement: document.querySelector('#email-error li:nth-child(1)'),
+                isValid: function(input){return input.value.length !== 0},
+                ruleElement:()=>{return document.querySelector('#lastName-error li:nth-child(1)')},
                 messege: 'Not empty.'
             },
             {
-                isValid: function(input){return input.value.length < 3;},
-                ruleElement: document.querySelector('#lastName-error li:nth-child(1)'),
+                isValid: function(input){return input.value.length >= 3;},
+                ruleElement:()=>{return document.querySelector('#lastName-error li:nth-child(2)')},
                 messege: 'At least 3 characters long.'
             },
             {
-                isValid: function(input){return input.value.length > 20;},
-                ruleElement: document.querySelector('#lastName-error li:nth-child(2)'),
+                isValid: function(input){return input.value.length <= 20;},
+                ruleElement:()=>{return document.querySelector('#lastName-error li:nth-child(3)')},
                 messege: 'At most 20 characters long.'
             },
             {
                 isValid:function(input){
-                    var allowedCharacters = input.value.match(/[^a-zA-Z]/g);
+                    var allowedCharacters = /[a-zA-Z]/g.test(input.value);
                     return allowedCharacters ? true : false;
                 },
-                ruleElement: document.querySelector('#lastName-error li:nth-child(3)'),
+                ruleElement:()=>{return document.querySelector('#lastName-error li:nth-child(4)')},
                 messege: 'Must only contain letters.'
             }
         ]
@@ -70,8 +70,10 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=gender]').parentElement.parentElement,
         rules:[
             {
-                isValid:function(){return document.querySelectorAll('input[name=gender]').forEach(el => {if(el.checked === true){return true}})},
-                ruleElement:document.querySelector('#gender-error li:nth-child(1)'),
+                isValid:function(){ let obj = document.querySelectorAll('input[name=gender]');
+                        let keys = Object.keys(obj);
+                        return keys.some(el=>{return obj[el].checked?true:false})},
+                ruleElement:()=>{return document.querySelector('#gender-error li:nth-child(1)')},
                 messege:'Choose your gender.'
             }
         ]
@@ -83,18 +85,18 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('select[name=birthday]').parentElement.parentElement,
         rules:[
             {
-                isValid:function(){return document.querySelectorAll('input[name=birthday]')[0].value===""?true:false},
-                ruleElement:document.querySelector('#birthday-error li:nth-child(1)'),
+                isValid:function(){return document.querySelectorAll('select[name=birthday]')[0].value!==""?true:false},
+                ruleElement:()=>{return document.querySelector('#birthday-error li:nth-child(1)')},
                 messege:'Select yours birthday Day.'
             },
             {
-                isValid:function(){return document.querySelectorAll('input[name=birthday]')[1].value===""?true:false},
-                ruleElement:document.querySelector('#birthday-error li:nth-child(2)'),
+                isValid:function(){return document.querySelectorAll('select[name=birthday]')[1].value!==""?true:false},
+                ruleElement:()=>{return document.querySelector('#birthday-error li:nth-child(2)')},
                 messege:'Select yours birthday Month.'
             },
             {
-                isValid:function(){return document.querySelectorAll('input[name=birthday]')[2].value===""?true:false},
-                ruleElement:document.querySelector('#birthday-error li:nth-child(3)'),
+                isValid:function(){return document.querySelectorAll('select[name=birthday]')[2].value!==""?true:false},
+                ruleElement:()=>{return document.querySelector('#birthday-error li:nth-child(3)')},
                 messege:'Select yours birthday Year.'
             }
         ]
@@ -106,26 +108,26 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=email]'),
         rules:[
             {
-                isValid: function(input){return input.value.length === 0},
-                ruleElement: document.querySelector('#email-error li:nth-child(1)'),
+                isValid: function(input){return input.value.length !== 0},
+                ruleElement:()=>{return  document.querySelector('#email-error li:nth-child(1)')},
                 messege: 'Not empty.'
             },
             {
-                isValid: function(input){return input.value.length < 6},
-                ruleElement: document.querySelector('#email-error li:nth-child(2)'),
+                isValid: function(input){return input.value.length >= 6},
+                ruleElement:()=>{return  document.querySelector('#email-error li:nth-child(2)')},
                 messege: 'At least 6 characters long.'
             },
             {
-                isValid:function(input){return input.value.length > 100},
-                ruleElement: document.querySelector('#email-error li:nth-child(3)'),
+                isValid:function(input){return input.value.length <= 100},
+                ruleElement:()=>{return  document.querySelector('#email-error li:nth-child(3)')},
                 messege: 'At most 100 characters long.'
             },
             {
                 isValid:function(input){
-                    var allowedCharacters = input.value.match(/@/g);
+                    var allowedCharacters = /@/g.test(input.value);
                     return allowedCharacters ? true : false;
                 },
-                ruleElement: document.querySelector('#email-error li:nth-child(4)'),
+                ruleElement:()=>{return  document.querySelector('#email-error li:nth-child(4)')},
                 messege: 'Contains a special character @.'
             }
         ]
@@ -137,16 +139,16 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=telephone]'),
         rules:[
             {
-                isValid: function(input){return input.value.length === 0},
-                ruleElement: document.querySelector('#telephone-error li:nth-child(1)'),
+                isValid: function(input){return input.value.length !== 0},
+                ruleElement:()=>{return document.querySelector('#telephone-error li:nth-child(1)')},
                 messege: 'Not empty.'
             },
             {
                 isValid: function(input){
-                    var allowedCharacters = input.value.match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g);
+                    var allowedCharacters = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/g.test(input.value);
                     return allowedCharacters ? true : false;
                 },
-                ruleElement: document.querySelector('#telephone-error li:nth-child(2)'),
+                ruleElement:()=>{return document.querySelector('#telephone-error li:nth-child(2)')},
                 messege: 'Format (123)456-7890 or +1234567890.'
             }
         ]
@@ -158,8 +160,8 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=addressLine1]'),
         rules:[
             {
-                isValid: function(input){return input.value.length === 0},
-                ruleElement: document.querySelector('#addressLine1-error li:nth-child(1)'),
+                isValid: function(input){return input.value.length !== 0},
+                ruleElement:()=>{return document.querySelector('#addressLine1-error li:nth-child(1)')},
                 messege: 'Not empty.'
             }
         ]
@@ -171,8 +173,8 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=addressLine2]'),
         rules:[
             {
-                isValid: function(input){return input.value.length === 0},
-                ruleElement: document.querySelector('#addressLine2-error li:nth-child(1)'),
+                isValid: function(input){return input.value.length !== 0},
+                ruleElement:()=>{return document.querySelector('#addressLine2-error li:nth-child(1)')},
                 messege: 'Not empty.'
             }
         ]
@@ -185,7 +187,7 @@ let formElementsObj = [
         rules:[
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#addressCity-error li:nth-child(1)'),
+                ruleElement:()=>{return document.querySelector('#addressCity-error li:nth-child(1)')},
                 messege: 'Not empty.'
             }
         ]
@@ -198,7 +200,7 @@ let formElementsObj = [
         rules:[
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#addressRegion-error li:nth-child(1)'),
+                ruleElement:()=>{return document.querySelector('#addressRegion-error li:nth-child(1)')},
                 messege: 'Not empty.'
             }
         ]
@@ -211,15 +213,15 @@ let formElementsObj = [
         rules:[
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#addressPostalCode-error li:nth-child(1)'),
+                ruleElement:()=>{return document.querySelector('#addressPostalCode-error li:nth-child(1)')},
                 messege: 'Not empty.'
             },
             {
                 isValid: function(input){
-                    var allowedCharacters = input.value.match(/d/);
+                    var allowedCharacters = /\d/g.test(input.value);
                     return allowedCharacters ? true : false;
                 },
-                ruleElement: document.querySelector('#addressPostalCode-error li:nth-child(2)'),
+                ruleElement:()=>{return document.querySelector('#addressPostalCode-error li:nth-child(2)')},
                 messege: 'Entered are several digits of the postal code.'
             }
         ]
@@ -231,8 +233,8 @@ let formElementsObj = [
         siblingErrorElement:document.querySelector('select[name=addressCountry]'),
         rules:[
             {
-                isValid:function(){return select.value===""?true:false},
-                ruleElement:document.querySelector('#addresCountry-error li:nth-child(1)'),
+                isValid:function(){return document.querySelector('select[name=addressCountry]').value!==""?true:false},
+                ruleElement:()=>{return document.querySelector('#addressCountry-error li:nth-child(1)')},
                 messege:'Selected yours country.'
             }
         ]
@@ -244,8 +246,10 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=contact]').parentElement.parentElement.parentElement,
         rules:[
             {
-                isValid:function(){},
-                ruleElement:document.querySelector('#contact-error li:nth-child(1)'),
+                isValid:function(){ let obj = document.querySelectorAll('input[name=contact]');
+                        let keys = Object.keys(obj);
+                        return keys.some(el=>{return obj[el].checked?true:false})},
+                ruleElement:()=>{ return document.querySelector('#contact-error li:nth-child(1)')},
                 messege:'One or more methods of communication are selected.'
             }
         ]
@@ -258,27 +262,27 @@ let formElementsObj = [
         rules:[
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#password-error li:nth-child(1)'),
+                ruleElement:()=>{return document.querySelector('#password-error li:nth-child(1)')},
                 messege: 'At least 8 characters long (and less than 100 characters).'
             },
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#password-error li:nth-child(2)'),
+                ruleElement:()=>{return document.querySelector('#password-error li:nth-child(2)')},
                 messege: 'Contains at least 1 number..'
             },
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#password-error li:nth-child(3)'),
+                ruleElement:()=>{return document.querySelector('#password-error li:nth-child(3)')},
                 messege: 'Contains at least 1 lowercase letter.'
             },
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#password-error li:nth-child(4)'),
+                ruleElement:()=>{return document.querySelector('#password-error li:nth-child(4)')},
                 messege: 'Contains at least 1 uppercase letter.'
             },
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#password-error li:nth-child(5)'),
+                ruleElement:()=>{return document.querySelector('#password-error li:nth-child(5)')},
                 messege: 'Contains a special character (e.g. @ !).'
             }
         ]
@@ -291,7 +295,7 @@ let formElementsObj = [
         rules:[
             {
                 isValid: function(input){return input.value.length !== 0},
-                ruleElement: document.querySelector('#passwordConfirmation-error li:nth-child(1)'),
+                ruleElement:()=>{return document.querySelector('#passwordConfirmation-error li:nth-child(1)')},
                 messege: 'This password needs to match the first one.'
             }
         ]
