@@ -1,4 +1,6 @@
 "use strict";
+console.info('mouseOverOut.js');
+
 let mouseOverOut = (function(){
 	let init = (link)=>{
 		link.addEventListener('mouseover',function(){link.type = 'text'});

@@ -79,7 +79,7 @@ let formElementsObj = [
         ]
     },
     {
-        element:document.querySelector('select[name=birthday]'),
+        element:Array.prototype.slice.call(document.querySelectorAll('select[name=birthday]')),
         name: 'birthday',
         type: 'select',
         siblingErrorElement: document.querySelector('select[name=birthday]').parentElement.parentElement,
@@ -129,6 +129,14 @@ let formElementsObj = [
                 },
                 ruleElement:()=>{return  document.querySelector('#email-error li:nth-child(4)')},
                 messege: 'Contains a special character @.'
+            },
+            {
+                isValid: function(input){
+                    var allowedCharacters = /([a-zA-Z0-9_.]{1,})((@[a-zA-Z]{2,})[\\\.]([a-zA-Z]{2,3}))/.test(input.value);
+                    return allowedCharacters ? true : false;
+                },
+                ruleElement:()=>{return document.querySelector('#email-error li:nth-child(5)')},
+                messege: 'Format blahblah@blah.com'
             }
         ]
     },
@@ -240,7 +248,7 @@ let formElementsObj = [
         ]
     },
     {
-        element:document.querySelectorAll('input[name=contact]'),
+        element:Array.prototype.slice.call(document.querySelectorAll('input[name=contact]')),
         name: 'contact',
         type: 'checkbox',
         siblingErrorElement: document.querySelector('input[name=contact]').parentElement.parentElement.parentElement,
@@ -261,29 +269,37 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=password]'),
         rules:[
             {
-                isValid: function(input){return input.value.length !== 0},
+                isValid: function(input){return (input.value.length >= 8 && input.value.length <= 100)},
                 ruleElement:()=>{return document.querySelector('#password-error li:nth-child(1)')},
                 messege: 'At least 8 characters long (and less than 100 characters).'
             },
             {
-                isValid: function(input){return input.value.length !== 0},
+                isValid: function(input){
+                    var allowedCharacters = /\d/.test(input.value);
+                    return allowedCharacters ? true : false},
                 ruleElement:()=>{return document.querySelector('#password-error li:nth-child(2)')},
                 messege: 'Contains at least 1 number..'
             },
             {
-                isValid: function(input){return input.value.length !== 0},
+                isValid: function(input){
+                    var allowedCharacters = /[a-z]/.test(input.value);
+                    return allowedCharacters ? true : false},
                 ruleElement:()=>{return document.querySelector('#password-error li:nth-child(3)')},
                 messege: 'Contains at least 1 lowercase letter.'
             },
             {
-                isValid: function(input){return input.value.length !== 0},
+                isValid: function(input){
+                    var allowedCharacters = /[A-Z]/.test(input.value);
+                    return allowedCharacters ? true : false},
                 ruleElement:()=>{return document.querySelector('#password-error li:nth-child(4)')},
                 messege: 'Contains at least 1 uppercase letter.'
             },
             {
-                isValid: function(input){return input.value.length !== 0},
+                isValid: function(input){
+                    var allowedCharacters = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/m.test(input.value);
+                    return allowedCharacters ? true : false},
                 ruleElement:()=>{return document.querySelector('#password-error li:nth-child(5)')},
-                messege: 'Contains a special character (e.g. @ !).'
+                messege: 'Should include all of the above listed together.'
             }
         ]
     },
@@ -294,7 +310,7 @@ let formElementsObj = [
         siblingErrorElement: document.querySelector('input[name=passwordConfirmation]'),
         rules:[
             {
-                isValid: function(input){return input.value.length !== 0},
+                isValid: function(input){return input.value === document.querySelector('input[name=password]').value},
                 ruleElement:()=>{return document.querySelector('#passwordConfirmation-error li:nth-child(1)')},
                 messege: 'This password needs to match the first one.'
             }
