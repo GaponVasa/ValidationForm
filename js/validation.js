@@ -4,11 +4,11 @@ let validationMyForm = (function(){
 	let validObj;
 	let formLink;
 	let elementsObject;
+	let currentLink;
 	const VALUE_ERROR = 'value-error';
 	
 
 	let setValidObj = (obj)=>{
-		console.info('setValidObj()');
 		if(!obj){
 			console.error('Object!!!');
 			return false;
@@ -19,19 +19,17 @@ let validationMyForm = (function(){
 	};
 
 	let getValidObj = ()=>{
-		console.log('getValidObj()');
 		return validObj};
 
 	let startValidation = (link, arr) =>{
-		// console.log('formLink', formLink);
-		// console.log('elementsObject', elementsObject);
 		formLink = link;
 		elementsObject = arr;
-		// console.log('formLink', formLink);
-		// console.log('elementsObject', elementsObject);
-
 		erorSetUp();
 		registerListeners();
+	};
+
+	let feedback = function(link){
+		currentLink = link;
 	};
 
 	let insertAfter = function(elem, refElem) {
@@ -108,6 +106,7 @@ let validationMyForm = (function(){
 			//console.log('validObj', validObj)
 			//console.error('-----------------------------END_SUBMIT---------------------------------')
 			event.preventDefault();
+			currentLink();
 		});
 	};
 
@@ -219,6 +218,7 @@ let validationMyForm = (function(){
     return{
     	setObj: setValidObj,
 		getObj: getValidObj,
+		setFeedback: feedback,
     	start: startValidation
     }
 })();
