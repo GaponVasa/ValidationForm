@@ -9,9 +9,9 @@ body{
 	cursor: pointer;
 }
 .value-error{
-/*	color: red;*/
 	font-weight: lighter;
 }
+.error{color: red;}
 
 .value-error li.invalid {
 	color: #e74c3c;
